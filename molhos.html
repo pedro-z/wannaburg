@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Molhos &amp; Acompanhamentos — Wannaburg</title>
+  <meta name="description" content="Molhos e acompanhamentos clássicos: Bloomin' Onion, ShackSauce, Cheddar Melt, Cajun Fries e mais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0a14; --bg-card: #16122a; --bg-soft: #1e1833;
+      --pink: #ff4d8d; --orange: #ff7a45; --yellow: #ffe566;
+      --mint: #00e5a8; --purple: #a855f7; --cyan: #22d3ee;
+      --text: #fff8f0; --text-muted: #c4b5d4; --border: rgba(255,255,255,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.55;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 45% at 20% 10%, rgba(0,229,168,0.12), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(34,211,238,0.10), transparent 45%),
+        radial-gradient(ellipse 45% 35% at 50% 90%, rgba(168,85,247,0.10), transparent 40%);
+      pointer-events: none; z-index: 0;
+    }
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle { position: absolute; font-size: 1rem; opacity: 0.22; animation: floatUp linear infinite; }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      12% { opacity: 0.28; } 88% { opacity: 0.18; }
+      100% { transform: translateY(-15vh) rotate(280deg); opacity: 0; }
+    }
+    .container { width: 100%; max-width: 520px; margin: 0 auto; padding: 0 18px; position: relative; z-index: 1; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(12,10,20,0.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 12px 0;
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg-soft); border: 1.5px solid var(--border);
+      color: var(--text); font-family: inherit; font-weight: 800; font-size: 0.88rem;
+      padding: 9px 14px; border-radius: 999px; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--mint); color: var(--mint); transform: translateX(-2px); }
+    .logo-mini {
+      display: flex; align-items: center; gap: 8px; text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+      color: var(--text);
+    }
+    .logo-mini img { width: 28px; height: 28px; border-radius: 8px; }
+
+    .recipe-hero { padding: 20px 0 8px; animation: fadeIn 0.7s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .recipe-hero-img-wrap {
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35), 0 0 0 1px var(--border);
+      margin-bottom: 18px;
+    }
+    .recipe-hero-img-wrap img { width: 100%; height: auto; display: block; object-fit: cover; }
+    .recipe-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .tag-origin { background: rgba(0,229,168,0.18); color: var(--mint); }
+    .tag-yield { background: rgba(255,122,69,0.18); color: var(--orange); }
+    .recipe-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.4rem, 5.5vw, 1.7rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 6px; line-height: 1.2;
+    }
+    .recipe-subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; margin-bottom: 20px; }
+
+    .block {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 20px 18px; margin-bottom: 16px;
+      animation: fadeIn 0.55s ease both;
+    }
+    .block-title {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.12rem; font-weight: 700;
+      margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+    }
+    .block-title .icon { font-size: 1.2rem; }
+    .block-yield {
+      font-size: 0.82rem; font-weight: 700; color: var(--mint);
+      margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+
+    .ing-group-title {
+      font-size: 0.8rem; font-weight: 800; color: var(--mint);
+      text-transform: uppercase; letter-spacing: 0.04em; margin: 12px 0 8px;
+    }
+    .ing-group-title:first-child { margin-top: 0; }
+    ul.ingredients { list-style: none; }
+    ul.ingredients li {
+      position: relative; padding: 7px 0 7px 22px;
+      font-size: 0.94rem; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    ul.ingredients li:last-child { border-bottom: none; }
+    ul.ingredients li::before {
+      content: '•'; position: absolute; left: 4px; color: var(--mint); font-weight: 900;
+    }
+
+    ol.steps { list-style: none; counter-reset: step; }
+    ol.steps li {
+      counter-increment: step; position: relative;
+      padding: 11px 0 11px 48px; font-size: 0.94rem; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    ol.steps li:last-child { border-bottom: none; }
+    ol.steps li::before {
+      content: counter(step); position: absolute; left: 0; top: 9px;
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 0.85rem; border-radius: 10px;
+      display: grid; place-items: center;
+      box-shadow: 0 4px 12px rgba(255,122,69,0.3);
+    }
+
+    .tip-box {
+      background: linear-gradient(145deg, rgba(0,229,168,0.1), rgba(34,211,238,0.06));
+      border: 1.5px solid rgba(0,229,168,0.28);
+      border-radius: 16px; padding: 16px; margin-top: 14px;
+    }
+    .tip-box h4 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
+      font-weight: 700; color: var(--mint); margin-bottom: 8px;
+    }
+    .tip-box p, .tip-box li {
+      font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .tip-box ul { list-style: none; padding: 0; }
+    .tip-box li { padding-left: 18px; position: relative; }
+    .tip-box li::before { content: '👉'; position: absolute; left: 0; }
+
+    .warn-box {
+      background: linear-gradient(145deg, rgba(255,122,69,0.12), rgba(255,77,141,0.08));
+      border: 1.5px solid rgba(255,122,69,0.3);
+      border-radius: 16px; padding: 14px 16px; margin-top: 12px;
+      font-size: 0.9rem; font-weight: 600; color: var(--text-muted);
+    }
+    .warn-box strong { color: var(--orange); }
+
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+    }
+    .toc a {
+      font-size: 0.78rem; font-weight: 800; text-decoration: none;
+      padding: 7px 12px; border-radius: 999px;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      color: var(--text-muted); transition: all 0.2s;
+    }
+    .toc a:hover { border-color: var(--mint); color: var(--mint); }
+
+    footer {
+      text-align: center; padding: 16px 0 36px;
+      font-size: 0.85rem; color: var(--text-muted); font-weight: 600;
+    }
+    footer a { color: var(--orange); text-decoration: none; font-weight: 700; }
+
+    /* Light splash for recipe pages */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0c0a14;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+    #splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-icons { font-size: 2.4rem; letter-spacing: 0.35em; animation: splashPop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes splashPop {
+      from { opacity: 0; transform: scale(0.4); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .splash-label {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem;
+      color: var(--text-muted); animation: splashPop 0.55s ease 0.15s both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="splash" role="status">
+    <div class="splash-icons">🧂 🍔 🍟</div>
+    <div class="splash-label">Molhos &amp; Acompanhamentos</div>
+  </div>
+
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="btn-back">← Voltar</a>
+      <a href="index.html" class="logo-mini">
+        <img src="logo.webp" alt="Wannaburg" width="28" height="28">
+        Wannaburg
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="recipe-hero">
+        <div class="recipe-hero-img-wrap">
+          <img src="15_dentro.webp" alt="Molhos e acompanhamentos" width="800" height="800" loading="eager">
+        </div>
+        <div class="recipe-meta">
+          <span class="tag tag-origin">Extras</span>
+          <span class="tag tag-yield">6 receitas</span>
+        </div>
+        <h1 class="recipe-title">Molhos &amp; Acompanhamentos</h1>
+        <p class="recipe-subtitle">Os segredos dos clássicos: molhos, temperos e fritas no estilo das grandes redes.</p>
+
+        <nav class="toc">
+          <a href="#bloomin">Bloomin' Sauce</a>
+          <a href="#shack">ShackSauce</a>
+          <a href="#cheddar">Cheddar Melt</a>
+          <a href="#cajun">Tempero Cajun</a>
+          <a href="#fritas">Fritas Five Guys</a>
+          <a href="#burger">Burger Five Guys</a>
+        </nav>
+      </section>
+
+      <!-- 1. BLOOMIN' ONION SAUCE -->
+      <div class="block" id="bloomin">
+        <h2 class="block-title"><span class="icon">🧅</span> Molho do Bloomin' Onion</h2>
+        <p class="block-yield">Estilo Outback · Rende cerca de 1 xícara e meia</p>
+
+        <p class="ing-group-title">Ingredientes</p>
+        <ul class="ingredients">
+          <li>1/2 xícara de maionese (preferência caseira ou Hellmann's)</li>
+          <li>2 colheres (sopa) de ketchup</li>
+          <li>2 colheres (chá) de creme de rábano (horseradish cream)</li>
+          <li>1/4 colher (chá) de páprica picante (defumada picante dá o tom avermelhado)</li>
+          <li>1/4 colher (chá) de sal</li>
+          <li>1/8 colher (chá) de orégano seco</li>
+          <li>1 pitada de pimenta caiena</li>
+          <li>1 pitada de pimenta-do-reino branca</li>
+        </ul>
+
+        <p class="ing-group-title" style="margin-top:16px">Modo de preparo</p>
+        <ol class="steps">
+          <li>Misture todos os ingredientes em uma tigela pequena até ficar homogêneo.</li>
+          <li>Tampe e leve à geladeira por no mínimo 2 horas (idealmente de um dia para o outro) — essencial para os sabores se integrarem.</li>
+          <li>Sirva gelado, acompanhando a cebola empanada em “flor” ou qualquer fritura.</li>
+        </ol>
+
+        <div class="tip-box">
+          <h4>💡 Dicas importantes</h4>
+          <ul>
+            <li>O creme de rábano é o ingrediente-chave. Sem ele, o molho vira só um “fry sauce” comum. Encontre em lojas de importados/gourmet. Alternativa: maionese + rábano ralado + gotas de limão.</li>
+            <li>Ajuste a picância com a caiena — a versão do restaurante tem um “puxão” de calor no final, sem ser explosivo.</li>
+            <li>Para chegar ainda mais perto do original, algumas versões de clone adicionam 1 colher (chá) de açúcar para equilibrar a acidez do ketchup.</li>
+          </ul>
+        </div>
+        <div class="warn-box">
+          <strong>⚠️ Atenção:</strong> não substitua a maionese por requeijão ou creme de leite — a textura e o sabor ficam bem diferentes.
+        </div>
+      </div>
+
+      <!-- 2. SHACKSAUCE -->
+      <div class="block" id="shack">
+        <h2 class="block-title"><span class="icon">🍔</span> ShackSauce</h2>
+        <p class="block-yield">Estilo Shake Shack · Rende cerca de 1 xícara</p>
+
+        <p class="ing-group-title">Ingredientes</p>
+        <ul class="ingredients">
+          <li>1/2 xícara de maionese</li>
+          <li>1 colher (sopa) de ketchup</li>
+          <li>1 colher (chá) de mostarda amarela (tipo americana)</li>
+          <li>1 colher (chá) de picles picados bem fininhos (ou relish)</li>
+          <li>1 colher (chá) de suco de limão ou vinagre branco</li>
+          <li>1/2 colher (chá) de páprica picante</li>
+          <li>1/2 colher (chá) de alho em pó</li>
+          <li>1 pitada de cúrcuma</li>
+          <li>1 pitada de pimenta-do-reino</li>
+        </ul>
+
+        <p class="ing-group-title" style="margin-top:16px">Modo de preparo</p>
+        <ol class="steps">
+          <li>Pique os picles até virarem quase uma pasta — esse é o segredo para o molho não ficar “pedaçudo”.</li>
+          <li>Misture tudo em uma tigela até homogeneizar.</li>
+          <li>Deixe na geladeira por pelo menos 1 hora antes de servir.</li>
+        </ol>
+
+        <div class="tip-box">
+          <h4>💡 Dica</h4>
+          <p>A combinação picles + mostarda + páprica é o que dá o gosto inconfundível do ShackSauce — é ele que vai nos burgers do Shake Shack.</p>
+        </div>
+      </div>
+
+      <!-- 3. CHEDDAR MELT -->
+      <div class="block" id="cheddar">
+        <h2 class="block-title"><span class="icon">🧀</span> Molho Cheddar Melt</h2>
+        <p class="block-yield">Estilo Five Guys / McDonald's · Rende para 2–3 burgers</p>
+
+        <p class="ing-group-title">Ingredientes</p>
+        <ul class="ingredients">
+          <li>250 g de queijo cheddar em fatias ou processado (tipo cheddar americano — derrete liso)</li>
+          <li>1/3 xícara de leite integral (mais se necessário)</li>
+          <li>1 colher (sopa) de manteiga</li>
+          <li>1/2 colher (chá) de páprica (opcional, dá cor)</li>
+          <li>1 pitada de sal</li>
+        </ul>
+
+        <p class="ing-group-title" style="margin-top:16px">Modo de preparo</p>
+        <ol class="steps">
+          <li>Em fogo baixo, derreta a manteiga em uma panelinha.</li>
+          <li>Adicione o leite e, quando aquecer, junte o queijo aos poucos, mexendo sempre.</li>
+          <li>Continue mexendo até ficar completamente liso e cremoso — nunca deixe ferver, senão o queijo separa.</li>
+          <li>Use imediatamente sobre o burger ou sirva como dip para as fritas.</li>
+        </ol>
+
+        <div class="tip-box">
+          <h4>💡 Dicas</h4>
+          <ul>
+            <li>No burger, a ordem do Five Guys é: pão tostado → cheddar melt espalhado no pão → hambúrguer em cima.</li>
+            <li>Para chegar mais perto do original: misture 70% cheddar processado com 30% cheddar curado ralado — sabor de verdade sem perder a cremosidade.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. CAJUN SEASONING -->
+      <div class="block" id="cajun">
+        <h2 class="block-title"><span class="icon">🌶️</span> Tempero Cajun Fries</h2>
+        <p class="block-yield">Estilo Five Guys · Para 4 porções de fritas</p>
+
+        <p class="ing-group-title">Ingredientes</p>
+        <ul class="ingredients">
+          <li>2 colheres (chá) de páprica picante (base cayenne; a defumada também funciona)</li>
+          <li>1 colher (chá) de sal</li>
+          <li>1 colher (chá) de alho em pó</li>
+          <li>1 colher (chá) de cebola em pó</li>
+          <li>1 colher (chá) de orégano seco</li>
+          <li>1 colher (chá) de tomilho seco</li>
+          <li>1/2 colher (chá) de pimenta caiena (ajuste ao gosto — o Five Guys é bem picante)</li>
+          <li>1/2 colher (chá) de pimenta-do-reino preta moída</li>
+        </ul>
+
+        <p class="ing-group-title" style="margin-top:16px">Modo de preparo</p>
+        <ol class="steps">
+          <li>Misture todos os temperos em um pote e reserve.</li>
+          <li>Frite as batatas (duas fritadas: primeira a 160 °C até amaciar, segunda a 190 °C até dourar).</li>
+          <li>Escorra bem e, ainda quentes, polvilhe generosamente o tempero e chacoalhe em uma tigela com tampa para distribuir por igual.</li>
+        </ol>
+
+        <div class="warn-box">
+          <strong>⚠️ Equilíbrio:</strong> a caiena dá o calor e as ervas (orégano + tomilho) dão o aroma. Se achar forte, reduza a caiena pela metade — mas não tire, senão não é cajun.
+        </div>
+      </div>
+
+      <!-- 5. FRITAS FIVE GUYS -->
+      <div class="block" id="fritas">
+        <h2 class="block-title"><span class="icon">🍟</span> Fritas estilo Five Guys</h2>
+        <p class="block-yield">Crocantes por fora, macias por dentro · 4 porções</p>
+
+        <p class="ing-group-title">Ingredientes</p>
+        <ul class="ingredients">
+          <li>4 batatas grandes (tipo russet/agria, ricas em amido — essencial)</li>
+          <li>Óleo de amendoim para fritura (oficial do Five Guys; se não achar, use girassol ou canola)</li>
+          <li>Gelo e água fria para a imersão</li>
+          <li>Sal e, se quiser, tempero cajun (receita acima)</li>
+        </ul>
+
+        <p class="ing-group-title" style="margin-top:16px">Modo de preparo</p>
+        <ol class="steps">
+          <li><strong>Corte:</strong> lave bem as batatas com casca e corte em bastões grossos de ~1 cm. Não deixe finas demais.</li>
+          <li><strong>Molho de amido:</strong> deixe os bastões em água fria por 30 minutos. Escorra e seque MUITO bem com pano ou papel.</li>
+          <li><strong>Primeira fritada (blanching):</strong> óleo a 160 °C, frite por 4–5 minutos sem dourar — devem ficar macias e pálidas. Escorra em grade (não em papel). Descanse pelo menos 15 minutos (ou congele nessa fase).</li>
+          <li><strong>Segunda fritada:</strong> suba o óleo para 190 °C e frite 3–4 minutos até dourar e ficar bem crocante.</li>
+          <li><strong>Tempero:</strong> escorra, salgue na hora e, se for versão cajun, polvilhe o tempero ainda quente e chacoalhe.</li>
+        </ol>
+
+        <div class="warn-box">
+          <strong>⚠️ Os dois segredos:</strong> dupla fritada com intervalo de descanso, e óleo limpo em temperatura controlada. Termômetro de cozinha faz toda a diferença.
+        </div>
+      </div>
+
+      <!-- 6. BURGER FIVE GUYS -->
+      <div class="block" id="burger">
+        <h2 class="block-title"><span class="icon">🍔</span> Burger montado estilo Five Guys</h2>
+        <p class="block-yield">Com Cheddar Melt · 1 sanduíche</p>
+
+        <p class="ing-group-title">Ordem de montagem</p>
+        <ol class="steps">
+          <li><strong>Pão</strong> (sesame bun) — tostado na chapa com manteiga, corte virado para baixo, até dourar levemente.</li>
+          <li><strong>Cheddar melt</strong> espalhado generosamente na metade de baixo do pão, ainda quente.</li>
+          <li><strong>Carne:</strong> bolinho esmagado na chapa (smash). Mode bolas de ~100 g de carne moída (80/20), tempere só com sal e esmague na frigideira bem quente por 2–3 min de cada lado, formando crosta dourada.</li>
+          <li>Segundo disco de carne (opcional — o “Little Burger” tem um, o normal tem dois).</li>
+          <li><strong>Coberturas</strong> na ordem do restaurante: alface rasgada, tomate em rodelas, picles, cebola grelhada (caramelizada na própria chapa), cogumelos grelhados (opcional), ketchup e mostarda no pão de cima.</li>
+          <li>Feche e sirva imediatamente — com as cajun fries do lado e o molho à parte.</li>
+        </ol>
+
+        <div class="tip-box">
+          <h4>💡 Toques finais</h4>
+          <ul>
+            <li>Não prense o burger depois de virar — só na primeira vez, para o smash.</li>
+            <li>A cebola grelhada é o toque que mais aproxima do original: fatie finas e deixe dourar na gordura da própria carne na chapa.</li>
+            <li>Para fritas “cajun style” completas, misture as fritas recém-saídas com o tempero e sirva o molho à parte.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><a href="index.html">← Todas as receitas</a> · © 2026 Wannaburg Recipes We Love</p>
+    </div>
+  </footer>
+
+  <script>
+    const particles = document.getElementById('particles');
+    const emojis = ['🧂','🍔','🍟','🧀','🌶️','✨'];
+    for (let i = 0; i < 6; i++) {
+      const el = document.createElement('span');
+      el.className = 'particle';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (10 + Math.random() * 10) + 's';
+      el.style.animationDelay = (Math.random() * 6) + 's';
+      el.style.fontSize = (0.8 + Math.random() * 0.5) + 'rem';
+      particles.appendChild(el);
+    }
+    const splash = document.getElementById('splash');
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        splash.classList.add('hide');
+        setTimeout(() => splash.remove(), 600);
+      }, 1100);
+    });
+  </script>
+</body>
+</html>

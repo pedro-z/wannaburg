@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Wannaburg — Receitas famosas de hambúrgueres e acompanhamentos</title>
+  <meta name="description" content="Receitas famosas de hambúrgueres e acompanhamentos. Os clássicos direto da sua cozinha.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0a1a;
+      --bg-card: #1a1229;
+      --bg-soft: #241833;
+      --pink: #ff4d8d;
+      --orange: #ff7a45;
+      --yellow: #ffe566;
+      --mint: #00e5a8;
+      --purple: #a855f7;
+      --cyan: #22d3ee;
+      --text: #fff8f0;
+      --text-muted: #c4b5d4;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 5%, rgba(255,122,69,0.20), transparent 55%),
+        radial-gradient(ellipse 55% 45% at 90% 15%, rgba(255,77,141,0.14), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 95%, rgba(0,229,168,0.10), transparent 45%),
+        radial-gradient(ellipse 40% 30% at 70% 60%, rgba(255,229,102,0.08), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+      animation: blobPulse 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobPulse {
+      0% { opacity: 0.85; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .particle {
+      position: absolute; font-size: 1.1rem; opacity: 0.35;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.25; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      width: 100%; max-width: 480px; margin: 0 auto;
+      padding: 0 18px; position: relative; z-index: 1;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,10,26,0.88);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-img {
+      width: 42px; height: 42px; border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 4px 14px rgba(255,122,69,0.35);
+    }
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .btn-enter {
+      background: linear-gradient(135deg, rgba(255,122,69,0.25), rgba(255,77,141,0.2));
+      border: 1.5px solid rgba(255,122,69,0.5);
+      color: #fff; font-family: inherit; font-weight: 800; font-size: 0.82rem;
+      padding: 9px 16px; border-radius: 999px; cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-enter:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 20px rgba(255,122,69,0.4);
+      border-color: var(--orange);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 20px 0 24px;
+      text-align: center;
+    }
+    .hero-logo-wrap {
+      margin: 0 auto 16px;
+      max-width: 280px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-logo-wrap img {
+      width: 100%; height: auto; display: block;
+      filter: drop-shadow(0 12px 28px rgba(255,122,69,0.35));
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.35rem, 5.5vw, 1.7rem);
+      font-weight: 700; line-height: 1.22; letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; background-size: 200% auto;
+      animation: shine 4s linear infinite;
+    }
+    @keyframes shine { to { background-position: 200% center; } }
+    .hero-sub {
+      color: var(--text-muted); font-size: 0.98rem; font-weight: 600;
+      max-width: 340px; margin: 0 auto 18px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-ctas {
+      display: flex; flex-direction: column; gap: 12px;
+      max-width: 280px; margin: 0 auto;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: inherit; font-weight: 800; font-size: 1rem;
+      padding: 15px 20px; border-radius: 16px; border: none; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: #fff; box-shadow: 0 10px 28px rgba(255,122,69,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 32px rgba(255,122,69,0.5);
+    }
+
+    /* SECTIONS */
+    section { padding: 20px 0 28px; }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em;
+      text-align: center; margin-bottom: 18px;
+    }
+    .section-title span {
+      background: linear-gradient(90deg, var(--yellow), var(--orange));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* Recipe cards */
+    .recipes-grid { display: flex; flex-direction: column; gap: 16px; }
+    .recipe-card {
+      display: block; text-decoration: none; color: inherit;
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: 22px; overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: fadeUp 0.55s ease both;
+    }
+    .recipe-card:nth-child(1)  { animation-delay: 0.04s; }
+    .recipe-card:nth-child(2)  { animation-delay: 0.07s; }
+    .recipe-card:nth-child(3)  { animation-delay: 0.10s; }
+    .recipe-card:nth-child(4)  { animation-delay: 0.13s; }
+    .recipe-card:nth-child(5)  { animation-delay: 0.16s; }
+    .recipe-card:nth-child(6)  { animation-delay: 0.19s; }
+    .recipe-card:nth-child(7)  { animation-delay: 0.22s; }
+    .recipe-card:nth-child(8)  { animation-delay: 0.25s; }
+    .recipe-card:nth-child(9)  { animation-delay: 0.28s; }
+    .recipe-card:nth-child(10) { animation-delay: 0.31s; }
+    .recipe-card:nth-child(11) { animation-delay: 0.34s; }
+    .recipe-card:nth-child(12) { animation-delay: 0.37s; }
+    .recipe-card:nth-child(13) { animation-delay: 0.40s; }
+    .recipe-card:nth-child(14) { animation-delay: 0.43s; }
+    .recipe-card:nth-child(15) { animation-delay: 0.46s; }
+
+    .recipe-card:hover {
+      transform: translateY(-5px) scale(1.012);
+      border-color: rgba(255,122,69,0.5);
+      box-shadow: 0 16px 34px rgba(255,122,69,0.2);
+    }
+
+    .recipe-card-img {
+      width: 100%; aspect-ratio: 1 / 1; height: auto;
+      object-fit: cover; object-position: center;
+      display: block; transition: transform 0.5s ease;
+    }
+    .recipe-card:hover .recipe-card-img { transform: scale(1.05); }
+
+    .recipe-card-body { padding: 15px 17px 17px; }
+
+    .recipe-card-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .tag-mac    { background: rgba(255,77,141,0.2); color: var(--pink); }
+    .tag-chip   { background: rgba(0,229,168,0.18); color: var(--mint); }
+    .tag-star   { background: rgba(34,211,238,0.2); color: var(--cyan); }
+    .tag-out    { background: rgba(255,122,69,0.2); color: var(--orange); }
+    .tag-wen    { background: rgba(168,85,247,0.2); color: var(--purple); }
+    .tag-taco   { background: rgba(255,229,102,0.18); color: var(--yellow); }
+    .tag-kfc    { background: rgba(255,122,69,0.22); color: #ff9a6c; }
+    .tag-pizza  { background: rgba(255,77,141,0.18); color: #ff7ab0; }
+    .tag-bk     { background: rgba(255,122,69,0.18); color: var(--orange); }
+    .tag-mad    { background: rgba(168,85,247,0.18); color: #c084fc; }
+    .tag-bobs   { background: rgba(255,229,102,0.2); color: #ffe566; }
+    .tag-molhos { background: rgba(0,229,168,0.15); color: var(--mint); }
+
+    .recipe-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em;
+    }
+    .recipe-card p {
+      font-size: 0.86rem; color: var(--text-muted); font-weight: 600;
+    }
+    .recipe-card-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 11px; font-size: 0.88rem; font-weight: 800; color: var(--mint);
+    }
+    .recipe-card:hover .recipe-card-cta { color: var(--yellow); }
+    .recipe-card-cta span { transition: transform 0.25s; }
+    .recipe-card:hover .recipe-card-cta span { transform: translateX(4px); }
+
+    .disclaimer {
+      text-align: center; padding: 20px 0 16px;
+      font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; font-weight: 600;
+      border-top: 1px solid var(--border); margin-top: 8px;
+    }
+    footer {
+      text-align: center; padding-bottom: 36px;
+      font-size: 0.88rem; color: var(--text-muted); font-weight: 600;
+    }
+    footer span { color: var(--orange); }
+
+    @media (min-width: 520px) {
+      .container { max-width: 560px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* SPLASH */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0f0a1a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      transition: opacity 0.65s ease, visibility 0.65s ease;
+    }
+    #splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 30% 20%, rgba(255,122,69,0.32), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 80% 70%, rgba(255,77,141,0.22), transparent 50%);
+      animation: splashPulse 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes splashPulse {
+      0% { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.06); }
+    }
+    .splash-logo-img {
+      position: relative; z-index: 2;
+      width: 140px; height: auto;
+      animation: splashLogoIn 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      filter: drop-shadow(0 10px 28px rgba(255,122,69,0.45));
+    }
+    @keyframes splashLogoIn {
+      0% { opacity: 0; transform: scale(0.35) rotate(-12deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    .splash-title {
+      position: relative; z-index: 2;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em;
+      background: linear-gradient(90deg, #fff, #ffe566, #ff7a45);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; background-size: 200% auto;
+      animation: splashTitleIn 0.65s ease 0.2s both, shine 3s linear 0.9s infinite;
+    }
+    @keyframes splashTitleIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .splash-tag {
+      position: relative; z-index: 2;
+      font-size: 0.88rem; font-weight: 700; color: #c4b5d4;
+      text-align: center; max-width: 260px;
+      animation: splashTitleIn 0.65s ease 0.35s both;
+    }
+    .splash-loader {
+      position: relative; z-index: 2;
+      width: 48px; height: 4px;
+      background: rgba(255,255,255,0.12); border-radius: 4px;
+      overflow: hidden; margin-top: 6px;
+      animation: splashTitleIn 0.55s ease 0.5s both;
+    }
+    .splash-loader::after {
+      content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 40%;
+      background: linear-gradient(90deg, #ff7a45, #ffe566);
+      border-radius: 4px; animation: loaderSlide 1.1s ease-in-out infinite;
+    }
+    @keyframes loaderSlide {
+      0% { left: -40%; }
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- SPLASH -->
+  <div id="splash" role="status" aria-live="polite">
+    <div class="splash-bg"></div>
+    <img src="logo.webp" alt="Wannaburg" class="splash-logo-img" width="140" height="140">
+    <div class="splash-title">Wannaburg</div>
+    <div class="splash-tag">Receitas famosas de hambúrgueres e acompanhamentos</div>
+    <div class="splash-loader"></div>
+  </div>
+
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.webp" alt="Wannaburg" class="logo-img" width="42" height="42">
+        <span class="logo-text">Wannaburg</span>
+      </a>
+      <button class="btn-enter" onclick="document.getElementById('receitas').scrollIntoView({behavior:'smooth'})">Explorar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-logo-wrap">
+          <img src="logo_explicativo_r.webp" alt="Wannaburg — Receitas famosas de hambúrgueres e acompanhamentos" width="560" height="700">
+        </div>
+        <h1>
+          Receitas famosas de<br>
+          <span class="highlight">hambúrgueres e acompanhamentos</span>
+        </h1>
+        <p class="hero-sub">
+          Os clássicos que você conhece, na versão que você prepara em casa.
+        </p>
+        <div class="hero-ctas">
+          <a href="#receitas" class="btn btn-primary">Ver todas as receitas</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="receitas">
+      <div class="container">
+        <h2 class="section-title">Todas as <span>receitas</span></h2>
+        <div class="recipes-grid">
+
+          <a href="bigmac.html" class="recipe-card">
+            <img src="01_indice.webp" alt="Hambúrguer Big Mac" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-mac">McDonald's</span>
+              <h3>Hambúrguer Big Mac</h3>
+              <p>Duas carnes, molho especial e pão triplo — versão lab.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="guacamole.html" class="recipe-card">
+            <img src="02_indice.webp" alt="Guacamole Cremosa" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-chip">Chipotle</span>
+              <h3>Guacamole Cremosa</h3>
+              <p>Abacate Hass, limão e jalapeño no ponto certo.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="frappuccino.html" class="recipe-card">
+            <img src="03_indice.webp" alt="Frappuccino de Caramelo" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-star">Starbucks</span>
+              <h3>Frappuccino de Caramelo</h3>
+              <p>Café gelado, calda de caramelo e chantilly viciante.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="iced-chai.html" class="recipe-card">
+            <img src="04_indice.webp" alt="Iced Chai Tea Latte" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-star">Starbucks</span>
+              <h3>Iced Chai Tea Latte</h3>
+              <p>Concentrado aromático de especiarias com leite gelado.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="bloomin-onion.html" class="recipe-card">
+            <img src="05_indice.webp" alt="Bloomin' Onion" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-out">Outback</span>
+              <h3>Bloomin' Onion</h3>
+              <p>Cebola empanada crocante e aberta como flor.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="ribs.html" class="recipe-card">
+            <img src="06_indice.webp" alt="Baby Back Ribs" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-out">Outback</span>
+              <h3>Baby Back Ribs</h3>
+              <p>Costela lenta com dry rub e molho barbecue caramelizado.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="frosty.html" class="recipe-card">
+            <img src="07_indice.webp" alt="Frosty de Chocolate" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-wen">Wendy's</span>
+              <h3>Frosty de Chocolate</h3>
+              <p>Textura híbrida entre sorvete e milk-shake.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="crunchwrap.html" class="recipe-card">
+            <img src="08_indice.webp" alt="Crunchwrap Supreme" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-taco">Taco Bell</span>
+              <h3>Crunchwrap Supreme</h3>
+              <p>Tortilla hexagonal com camada crocante no centro.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="frango.html" class="recipe-card">
+            <img src="09_indice.webp" alt="Frango Frito Crocante" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-kfc">KFC / Chick-fil-A</span>
+              <h3>Frango Frito Crocante</h3>
+              <p>Tenders com crosta escamosa e marinada de picles.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="pao-alho.html" class="recipe-card">
+            <img src="10_indice.webp" alt="Pão de Alho Recheado" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-pizza">Pizza Hut / Domino's</span>
+              <h3>Pão de Alho Recheado</h3>
+              <p>Baguete com manteiga de alho e muçarela derretida.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="batata.html" class="recipe-card">
+            <img src="11_indice.webp" alt="Batata Rústica Assada" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-bk">McDonald's / BK</span>
+              <h3>Batata Rústica Assada</h3>
+              <p>Gomos crocantes por fora, macios por dentro.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="burger-gourmet.html" class="recipe-card">
+            <img src="12_indice.webp" alt="Hambúrguer Gourmet Caseiro" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-mad">Madero / Jeronimo</span>
+              <h3>Hambúrguer Gourmet</h3>
+              <p>Blend 180g, brioche e queijo fundido no ponto.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="tacos.html" class="recipe-card">
+            <img src="13_indice.webp" alt="Tacos de Carne Moída" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-taco">Taco Bell</span>
+              <h3>Tacos de Carne Moída</h3>
+              <p>Conchas crocantes com tempero clássico e cheddar.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="ovomaltine.html" class="recipe-card">
+            <img src="14_indice.webp" alt="Milk-shake de Ovomaltine" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-bobs">Bob's / McDonald's</span>
+              <h3>Milk-shake de Ovomaltine</h3>
+              <p>Cremoso com flocos crocantes de malte.</p>
+              <div class="recipe-card-cta">Ver receita completa <span>→</span></div>
+            </div>
+          </a>
+
+          <a href="molhos.html" class="recipe-card">
+            <img src="15_indice.webp" alt="Tabela Mestra de Molhos" class="recipe-card-img" width="480" height="480" loading="lazy">
+            <div class="recipe-card-body">
+              <span class="recipe-card-tag tag-molhos">Extras</span>
+              <h3>Molhos &amp; Acompanhamentos</h3>
+              <p>Bloomin', ShackSauce, Cheddar Melt, Cajun Fries e mais.</p>
+              <div class="recipe-card-cta">Ver receitas completas <span>→</span></div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <p class="disclaimer">
+      Nota: conteúdo autoral, não oficial e sem afiliação às marcas citadas.
+    </p>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 <span>Wannaburg Recipes We Love</span> · Feito com 🍔 e ciência</p>
+    </div>
+  </footer>
+
+  <script>
+    const particles = document.getElementById('particles');
+    const emojis = ['🍔','🍟','🍩','🧀','🧪','✨','🔥','🥤','🍕','🌮','🍗','🧅'];
+    for (let i = 0; i < 12; i++) {
+      const el = document.createElement('span');
+      el.className = 'particle';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (8 + Math.random() * 12) + 's';
+      el.style.animationDelay = (Math.random() * 8) + 's';
+      el.style.fontSize = (0.9 + Math.random() * 0.8) + 'rem';
+      particles.appendChild(el);
+    }
+
+    const splash = document.getElementById('splash');
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        splash.classList.add('hide');
+        setTimeout(() => splash.remove(), 700);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

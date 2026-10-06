@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Batata Rústica Assada— Wannaburg</title>
+  <meta name="description" content="Batata Rústica Assada — versão caseira inspirada em McDonald's / Burger King.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0a14;
+      --bg-card: #16122a;
+      --bg-soft: #1e1833;
+      --pink: #ff4d8d;
+      --orange: #ff7a45;
+      --yellow: #ffe566;
+      --mint: #00e5a8;
+      --purple: #a855f7;
+      --cyan: #22d3ee;
+      --text: #fff8f0;
+      --text-muted: #c4b5d4;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Softer ambient – more mint/cyan, less pink */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 45% at 20% 10%, rgba(0,229,168,0.12), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(34,211,238,0.10), transparent 45%),
+        radial-gradient(ellipse 45% 35% at 50% 90%, rgba(168,85,247,0.10), transparent 40%),
+        radial-gradient(ellipse 35% 30% at 70% 55%, rgba(255,122,69,0.07), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+      animation: ambientShift 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientShift {
+      0% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .particle {
+      position: absolute; font-size: 1rem; opacity: 0.22;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      12% { opacity: 0.28; }
+      88% { opacity: 0.18; }
+      100% { transform: translateY(-15vh) rotate(280deg); opacity: 0; }
+    }
+
+    .container {
+      width: 100%; max-width: 520px; margin: 0 auto;
+      padding: 0 18px; position: relative; z-index: 1;
+    }
+
+    /* Header with back */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(12,10,20,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg-soft); border: 1.5px solid var(--border);
+      color: var(--text); font-family: inherit; font-weight: 800; font-size: 0.88rem;
+      padding: 9px 14px; border-radius: 999px; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      border-color: var(--mint); color: var(--mint);
+      transform: translateX(-2px);
+    }
+    .logo-mini {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem;
+      background: linear-gradient(90deg, #fff, var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-decoration: none;
+    }
+
+    /* Hero image */
+    .recipe-hero {
+      padding: 20px 0 8px;
+      animation: fadeIn 0.7s ease both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .recipe-hero-img-wrap {
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35), 0 0 0 1px var(--border);
+      margin-bottom: 18px;
+    }
+    .recipe-hero-img-wrap img {
+      width: 100%; height: auto; display: block; object-fit: cover;
+    }
+
+    .recipe-meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
+    }
+    .tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .tag-origin { background: rgba(255,77,141,0.2); color: var(--pink); }
+    .tag-yield  { background: rgba(0,229,168,0.15); color: var(--mint); }
+
+    .recipe-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.45rem, 5.5vw, 1.75rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 6px; line-height: 1.2;
+    }
+    .recipe-subtitle {
+      color: var(--text-muted); font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    /* Sections */
+    .block {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 18px;
+      margin-bottom: 16px;
+      animation: fadeIn 0.6s ease both;
+    }
+    .block:nth-of-type(1) { animation-delay: 0.1s; }
+    .block:nth-of-type(2) { animation-delay: 0.18s; }
+    .block:nth-of-type(3) { animation-delay: 0.26s; }
+
+    .block-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .block-title span.icon {
+      font-size: 1.25rem;
+    }
+
+    /* Ingredients */
+    .ing-group-title {
+      font-size: 0.82rem; font-weight: 800; color: var(--mint);
+      text-transform: uppercase; letter-spacing: 0.04em;
+      margin: 14px 0 8px;
+    }
+    .ing-group-title:first-child { margin-top: 0; }
+
+    ul.ingredients {
+      list-style: none;
+    }
+    ul.ingredients li {
+      position: relative;
+      padding: 7px 0 7px 22px;
+      font-size: 0.95rem; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    ul.ingredients li:last-child { border-bottom: none; }
+    ul.ingredients li::before {
+      content: '•';
+      position: absolute; left: 4px; color: var(--mint);
+      font-weight: 900;
+    }
+
+    /* Steps */
+    ol.steps {
+      list-style: none; counter-reset: step;
+    }
+    ol.steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 12px 0 12px 48px;
+      font-size: 0.95rem; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    ol.steps li:last-child { border-bottom: none; }
+    ol.steps li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 10px;
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--pink), var(--orange));
+      color: #fff; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 0.9rem;
+      border-radius: 10px;
+      display: grid; place-items: center;
+      box-shadow: 0 4px 12px rgba(255,77,141,0.3);
+    }
+
+    /* Tip */
+    .tip-box {
+      background: linear-gradient(145deg, rgba(0,229,168,0.12), rgba(34,211,238,0.08));
+      border: 1.5px solid rgba(0,229,168,0.3);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.6s ease 0.32s both;
+    }
+    .tip-box h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--mint); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tip-box p {
+      font-size: 0.92rem; font-weight: 600; color: var(--text-muted);
+    }
+
+    /* Table for molhos */
+    .sauce-table {
+      width: 100%; border-collapse: collapse; font-size: 0.88rem;
+    }
+    .sauce-table th {
+      text-align: left; padding: 10px 8px;
+      font-weight: 800; color: var(--mint);
+      border-bottom: 1.5px solid rgba(0,229,168,0.3);
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .sauce-table td {
+      padding: 12px 8px; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+    }
+    .sauce-table tr:last-child td { border-bottom: none; }
+    .sauce-name { color: var(--yellow); font-weight: 800; }
+    .sauce-ref { color: var(--text-muted); font-size: 0.82rem; }
+
+    footer {
+      text-align: center; padding: 16px 0 36px;
+      font-size: 0.85rem; color: var(--text-muted); font-weight: 600;
+    }
+    footer a { color: var(--pink); text-decoration: none; font-weight: 700; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Light splash */
+    #splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #0c0a14;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      transition: opacity 0.55s ease, visibility 0.55s ease;
+    }
+    #splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-icons { font-size: 2.4rem; letter-spacing: 0.35em; animation: splashPop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes splashPop {
+      from { opacity: 0; transform: scale(0.4); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .splash-label {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem;
+      color: var(--text-muted); animation: splashPop 0.55s ease 0.15s both;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="splash" role="status">
+    <div class="splash-icons">🍟 🔥 ✨</div>
+    <div class="splash-label">Batata Rústica</div>
+  </div>
+
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="btn-back">← Voltar</a>
+      <a href="index.html" class="logo-mini"><img src="logo.webp" alt="Wannaburg" width="28" height="28" style="border-radius:8px;vertical-align:middle;margin-right:6px">Wannaburg</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="recipe-hero">
+        <div class="recipe-hero-img-wrap">
+          <img src="11_dentro.webp" alt="Batata Rústica Assada" width="800" height="1000" loading="eager">
+        </div>
+        <div class="recipe-meta">
+          <span class="tag tag-origin">McDonald's / Burger King</span>
+          <span class="tag tag-yield">4 porções</span>
+        </div>
+        <h1 class="recipe-title">Batata Rústica Assada</h1>
+        <p class="recipe-subtitle">Gomos crocantes por fora, macios por dentro.</p>
+      </section>
+
+      <div class="block">
+        <h2 class="block-title"><span class="icon">🧂</span> Ingredientes</h2>
+        
+        <ul class="ingredients">
+          <li>4 batatas médias tipo Asterix (casca rosada), higienizadas</li>
+          <li>3 colheres (sopa) de azeite de oliva extravirgem</li>
+          <li>1 colher (chá) de páprica doce</li>
+          <li>1 colher (sopa) de folhas frescas de alecrim</li>
+          <li>1/2 colher (sopa) de folhas de tomilho fresco</li>
+          <li>1 colher (chá) de sal e pimenta-do-reino a gosto</li>
+        </ul>
+    
+      </div>
+
+      <div class="block">
+        <h2 class="block-title"><span class="icon">👨‍🍳</span> Modo de Preparo</h2>
+        
+        <ol class="steps">
+          <li>Mantendo a casca, corte as batatas ao meio e depois em gomos uniformes (6 a 8 partes).</li>
+          <li>Cozinhe em água fria com sal: a partir da fervura, exatamente 5 minutos. Escorra e seque bem.</li>
+          <li>Acomode em assadeira sem amontoar. Regue com azeite e polvilhe páprica, alecrim, tomilho, sal e pimenta. Misture.</li>
+          <li>Asse a 200°C por 35–40 minutos, virando na metade do tempo para dourar por igual.</li>
+        </ol>
+    
+      </div>
+
+      
+
+      <div class="tip-box">
+        <h3>💡 Dica do Chef</h3>
+        <p>A pré-fervura curta gelatiniza o amido superficial. Ao ir para o forno quente, esse amido forma uma película ultrafina e crocante sem ressecar o interior.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><a href="index.html">← Todas as receitas</a> · © 2026 Wannaburg Recipes We Love</p>
+    </div>
+  </footer>
+
+  <script>
+    const particles = document.getElementById('particles');
+    const emojis = ['✨','🔥','🧀','🥤','🧪'];
+    for (let i = 0; i < 6; i++) {
+      const el = document.createElement('span');
+      el.className = 'particle';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (10 + Math.random() * 10) + 's';
+      el.style.animationDelay = (Math.random() * 6) + 's';
+      el.style.fontSize = (0.8 + Math.random() * 0.5) + 'rem';
+      particles.appendChild(el);
+    }
+
+
+    const splash = document.getElementById('splash');
+    if (splash) {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          splash.classList.add('hide');
+          setTimeout(() => splash.remove(), 600);
+        }, 1100);
+      });
+    }
+
+  </script>
+</body>
+</html>
